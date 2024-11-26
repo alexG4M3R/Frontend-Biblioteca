@@ -27,18 +27,13 @@ const AdministrarCatalogo = () => {
                 <label htmlFor="ano">Año del Documento</label><br />
                 <input type="text" id="ano" name="ano" placeholder="Ingrese el año" /><br /><br />
 
-                <label htmlFor="tipo">Tipo de documento:</label>
-                <select id="tipo" name="tipo">
-                    <option value="">Seleccionar</option>
-                </select><br /><br />
 
                 <label htmlFor="categoria">Categoría del Documento:</label>
                 <select id="categoria" name="categoria">
                     <option value="">Seleccionar</option>
                 </select><br /><br />
 
-                <label htmlFor="codigo">Código del Documento</label><br />
-                <input type="text" id="codigo" name="codigo" placeholder="Ingrese el código" /><br /><br />
+                
 
                 <div className="button-container">
 
@@ -49,9 +44,6 @@ const AdministrarCatalogo = () => {
                     </Link>
 
 
-                    <Link to="/devoluciones">
-                        <button type="button" className="boton_dev botones">Devolución de libros</button>
-                    </Link>
                     
                 </div>
                 </form>

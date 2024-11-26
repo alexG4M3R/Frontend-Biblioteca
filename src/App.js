@@ -29,4 +29,24 @@ function App() {
   );
 }
 
+
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/solicitudes" element={<PrivateRoute element={<Solicitudes />} roles={['bibliotecario']} />} />
+//         <Route path="/registroSolicitud" element={<PrivateRoute element={<RegistroSolicitud />} roles={['bibliotecario']} />} />
+//         <Route path="/" element={<Login />} />
+//         <Route path="/catalogo" element={<PrivateRoute element={<Catalogo />} roles={['admin', 'bibliotecario', 'usuario']} />} />
+//         <Route path="/resultados" element={<PrivateRoute element={<Resultados />} roles={['admin', 'bibliotecario', 'usuario']} />} />
+//         <Route path="/administrar" element={<PrivateRoute element={<AdministrarCatalogo />} roles={['admin']} />} />
+//         <Route path="/eliminar" element={<PrivateRoute element={<EliminarDocumento />} roles={['admin']} />} />
+//         <Route path="/devoluciones" element={<PrivateRoute element={<DevolucionLibro />} roles={['bibliotecario']} />} />
+//         <Route path="/registro" element={<PrivateRoute element={<RegistroUsuario />} roles={['admin']} />} />
+//         <Route path="/unauthorized" element={<div>No tienes permiso para acceder a esta página.</div>} />
+//       </Routes>
+//     </Router>
+//   );
+// }
+
 export default App;

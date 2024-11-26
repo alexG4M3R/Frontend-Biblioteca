@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Fondo gris claro */
+}
+
+.Contenido {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.titulo {
+    font-size: 24px;
+    color: darkred;
+    margin: 20px;
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(219, 219, 219);
+    width: 80%;
+    max-width: 1000px;
+    border-radius: 5px;
+}
+
+.tabla-Contenedor {
+    width: 80%;
+    max-width: 1200px;
+    max-height: 500px; /* Altura máxima para el contenedor de la tabla */
+    overflow-y: auto; /* Scroll vertical cuando hay muchos elementos */
+    border: 1px solid #000000;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 18px;
+    text-align: left;
+    background-color: rgb(175, 175, 175);
+    border-radius: 5px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #000000;
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    background-color: darkred;
+    position: sticky;
+    color: white;
+    top: 0;
+    z-index: 2;
+}
+
+.boton {
+    background-color: darkred;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.botoness {
+    display: flex;
+    justify-content: space-between;
+}

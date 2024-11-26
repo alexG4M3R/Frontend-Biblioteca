@@ -1,0 +1,67 @@
+/* Contenedor general para centrar el login */
+.logincontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8d7da; /* Fondo rojo claro */
+}
+
+.login-container {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.login-container h1 {
+  text-align: center;
+  font-size: 24px;
+  color: #721c24; /* Rojo oscuro */
+  margin-bottom: 20px;
+}
+
+.login-container h2 {
+  text-align: center;
+  font-size: 18px;
+  color: #a71d2a; /* Rojo medio */
+  margin-bottom: 20px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #f5c6cb; /* Borde rojo claro */
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #c82333; /* Rojo */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-container button:hover {
+  background-color: #a71d2a; /* Rojo medio */
+}
+
+.login-container .error {
+  color: #721c24; /* Rojo oscuro */
+  margin-top: 10px;
+  text-align: center;
+}

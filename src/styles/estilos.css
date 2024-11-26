@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0; /* Fondo gris claro */
+}
+
+.Contenido {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ConsultaCatalogo {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 600px;
+}
+
+.ConsultaCatalogo h2 {
+  margin-top: 0;
+  text-align: center;
+  color: darkred;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.ConsultaCatalogo label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.ConsultaCatalogo input[type="text"],
+.ConsultaCatalogo input[type="email"],
+.ConsultaCatalogo input[type="password"],
+.ConsultaCatalogo select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.ConsultaCatalogo button {
+  width: 100%;
+  padding: 10px;
+  background-color: #c82333; /* Rojo */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.ConsultaCatalogo button:hover {
+  background-color: #a71d2a; /* Rojo medio */
+}
+
+.ConsultaCatalogo .error {
+  color: darkred;
+  margin-top: 10px;
+  text-align: center;
+}

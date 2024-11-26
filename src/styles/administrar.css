@@ -1,0 +1,77 @@
+.index_admcatalog {
+    width: 100%;
+    max-width: 800px;
+    margin: 100px auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column; 
+    align-items: start;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 30px; 
+}
+
+input[type="text"], select {
+    text-align: left;
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; 
+}
+
+select{
+    width: 97.5%;
+} 
+
+.button-container {
+    display: flex;
+
+}
+
+
+.boton_eliminar {
+    padding: 30px 40px;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #8b0000;
+    margin: 15px;
+}
+
+.botones:hover {
+    background-color: rgb(199, 35, 35);
+}
+
+
+.boton_agregar {
+    padding: 30px 40px;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #8b0000;
+    margin: 15px;
+}
+
+.boton_dev {
+    padding: 30px 40px;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #8b0000;
+    margin: 15px;
+}
+
+.botones:hover {
+    background-color: rgb(199, 35, 35);
+}

@@ -1,0 +1,49 @@
+.eliminar_documento {
+    width: 80%;
+    max-width: 400px;
+    margin: 180px auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column; 
+    align-items: start;
+}
+
+input[type="text"], select {
+    text-align: left;
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; 
+}
+
+
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.boton_ingresar_eliminar, 
+.boton_volver_eliminar {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #8b0000;
+    flex: 1;
+    text-align: center;
+    margin: 0 5px;
+}
+
+.boton_ingresar_eliminar:hover,
+.boton_volver_eliminar:hover {
+    background-color: #a30000;
+}

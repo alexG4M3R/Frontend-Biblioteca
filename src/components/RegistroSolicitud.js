@@ -25,20 +25,17 @@ const RegistroSolicitud = () => {
       return;
     }
     try {
-      const formData = new FormData();
-      formData.append('estado', 'registrado');
-      formData.append('rut', rut);
-      if (fingerprint) {
-        formData.append('fingerprint', fingerprint);
-      }
-
       const response = await fetch(`/api/prestamos/${loan._id}`, {
         method: 'PUT',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ estado: 'registrado', rut })
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error('Error al registrar el préstamo');
+        throw new Error(data.mensaje || 'Error al registrar el préstamo');
       }
 
       window.alert('Préstamo registrado correctamente');

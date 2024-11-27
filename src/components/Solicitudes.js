@@ -41,6 +41,23 @@ const Solicitudes = () => {
     navigate('/RegistroSolicitud', { state: { loan } });
   };
 
+  const handleDelete = async (loanId) => {
+    try {
+      const response = await fetch(`/api/prestamos/${loanId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al eliminar el préstamo');
+      }
+
+      // Actualizar el estado del préstamo en la interfaz
+      setLoanData(prevData => prevData.filter(loan => loan._id !== loanId));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -81,7 +98,10 @@ const Solicitudes = () => {
                 <td>{loan.estado}</td>
                 <td>
                   {loan.estado === 'pendiente' && (
-                    <button onClick={() => handleApprove(loan)}>Aprobar</button>
+                    <>
+                      <button onClick={() => handleApprove(loan)}>Aprobar</button>
+                      <button onClick={() => handleDelete(loan._id)}>Eliminar</button>
+                    </>
                   )}
                 </td>
               </tr>

@@ -12,6 +12,14 @@ const RegistroUsuario = () => {
   const [telefono, setTelefono] = useState('');
   const [rol, setRol] = useState('usuario'); // Estado para el rol del usuario
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleRutChange = (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) { // Verificar si el valor contiene solo números
+      setRut(value);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,9 +37,14 @@ const RegistroUsuario = () => {
         throw new Error(data.mensaje || 'Error al crear el usuario');
       }
 
-      window.alert('Usuario creado correctamente');
-      window.location.reload(); // Recargar la página
-
+      setSuccess('Usuario creado correctamente');
+      setNombre('');
+      setRut('');
+      setEmail('');
+      setPassword('');
+      setDireccion('');
+      setTelefono('');
+      setRol('usuario');
     } catch (error) {
       setError(error.message);
     }
@@ -41,7 +54,6 @@ const RegistroUsuario = () => {
     <div>
       <Header />
       <div><Background imageUrl={`${process.env.PUBLIC_URL}/imagenes/fondo.jpeg`} /></div>
-      <div className="container1">
         <h2>Registro de Usuario</h2>
         <div className="form-wrapper">
           <div className="register-tab">
@@ -56,17 +68,20 @@ const RegistroUsuario = () => {
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                   required 
+                  placeholder='Ej: Juan Pérez'
                 />
               </div>
               <div className="input-group">
-                <label htmlFor="rut">RUT</label>
+                <label htmlFor="rut">RUT (sin guion ni puntos)</label>
                 <input 
                   type="text" 
                   id="rut" 
                   name="rut" 
                   value={rut}
-                  onChange={(e) => setRut(e.target.value)}
+                  onChange={handleRutChange}
+                  pattern="\d*" // Permitir solo números
                   required 
+                  placeholder='Ej: 123456789'
                 />
               </div>
               <div className="input-group">
@@ -78,6 +93,7 @@ const RegistroUsuario = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required 
+                  placeholder='ejemplo@example.com'
                 />
               </div>
               <div className="input-group">
@@ -89,6 +105,7 @@ const RegistroUsuario = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required 
+                  placeholder='********'
                 />
               </div>
               <div className="input-group">
@@ -100,6 +117,7 @@ const RegistroUsuario = () => {
                   value={direccion}
                   onChange={(e) => setDireccion(e.target.value)}
                   required 
+                  placeholder='Ej: Calle 123'
                 />
               </div>
               <div className="input-group">
@@ -111,6 +129,7 @@ const RegistroUsuario = () => {
                   value={telefono}
                   onChange={(e) => setTelefono(e.target.value)}
                   required 
+                  placeholder='912345678'
                 />
               </div>
               <div className="input-group">
@@ -138,10 +157,11 @@ const RegistroUsuario = () => {
               <button type="submit">Registrar</button>
             </form>
             {error && <p className="error">{error}</p>}
+            {success && <p className="success">{success}</p>}
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

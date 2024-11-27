@@ -99,7 +99,7 @@ const Vencidos = () => {
                 <td>{prestamo.usuario.nombre}</td>
                 <td>{prestamo.libros.map(libro => libro.titulo).join(', ')}</td>
                 <td>{prestamo.tipo}</td>
-                <td>{new Date(prestamo.fechaDevolucion).toLocaleDateString()}</td>
+                <td>{new Date(prestamo.fechaDevolucion).toLocaleString()}</td>
                 <td>
                   {prestamo.estado === 'vencido' ? (
                     <button 

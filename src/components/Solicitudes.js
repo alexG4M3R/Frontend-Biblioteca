@@ -75,8 +75,8 @@ const Solicitudes = () => {
               <tr key={index}>
                 <td>{loan.usuario.nombre}</td>
                 <td>{loan.libros.map(libro => libro.titulo).join(', ')}</td>
-                <td>{new Date(loan.fechaPrestamo).toLocaleDateString()}</td>
-                <td>{new Date(loan.fechaDevolucion).toLocaleDateString()}</td>
+                <td>{new Date(loan.fechaPrestamo).toLocaleString()}</td>
+                <td>{new Date(loan.fechaDevolucion).toLocaleString()}</td>
                 <td>{loan.tipo}</td>
                 <td>{loan.estado}</td>
                 <td>

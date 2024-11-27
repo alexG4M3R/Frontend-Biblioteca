@@ -31,7 +31,7 @@ const DevolucionLibro = () => {
       setIsbn('');
       setTimeout(() => {
         setSuccess('');
-        navigate('/devoluciones');
+        navigate('/administrar');
       }, 2000); // Redirigir después de 2 segundos
     } catch (error) {
       setError(error.message);

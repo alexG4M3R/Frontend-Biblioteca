@@ -60,9 +60,7 @@ const DevolucionLibro = () => {
           {/* Contenedor de botones */}
           <div className="button-container">
             <input className="boton_ingresar botones" type="submit" value="Ingresar" />
-            <Link to="/administrar">
-              <button type="button" className="boton_volver botones">Volver</button>
-            </Link>
+            
           </div>
         </form>
         {error && <p className="error">{error}</p>}

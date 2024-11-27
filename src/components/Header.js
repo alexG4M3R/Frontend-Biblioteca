@@ -24,11 +24,6 @@ const Header = () => {
           <li className="header__nav-item"><Link to="/catalogo">Catálogo</Link></li>
 
 
-          <li className="header__nav-item"><Link to="/administrar">Administrar</Link></li>
-          <li className="header__nav-item"><Link to="/registro">Registro</Link></li>
-          <li className="header__nav-item"><Link to="/solicitudes">Solicitudes</Link></li>
-          <li className="header__nav-item"><Link to="/vencidos">Prestamos</Link></li>
-          <li className="header__nav-item"><Link to="/devoluciones">Devoluciones</Link></li>
 
           {userRole === 'admin' && (
             <>

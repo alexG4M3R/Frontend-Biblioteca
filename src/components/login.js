@@ -36,9 +36,9 @@ const Login = () => {
       localStorage.setItem('rol', data.rol);
 
       if (data.rol === 'admin') {
-        navigate('/admin');
+        navigate('/catalogo');
       } else if (data.rol === 'bibliotecario') {
-        navigate('/bibliotecario');
+        navigate('/catalogo');
       } else {
         navigate('/catalogo');
       }

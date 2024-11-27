@@ -26,6 +26,7 @@ function App() {
         <Route path="/administrar" element={<PrivateRoute element={<AdministrarCatalogo />} roles={['admin']} />} />
         <Route path="/devoluciones" element={<PrivateRoute element={<DevolucionLibro />} roles={['bibliotecario']} />} />
         <Route path="/registro" element={<PrivateRoute element={<RegistroUsuario />} roles={['admin']} />} />
+        <Route path="/vencidos" element={<PrivateRoute element={<Vencidos />} roles={['bibliotecario']} />} />
         <Route path="/unauthorized" element={<div>No tienes permiso para acceder a esta página.</div>} />
       </Routes>
     </Router>

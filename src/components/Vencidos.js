@@ -82,7 +82,6 @@ const Vencidos = () => {
         <table>
           <thead>
             <tr>
-              <th>ID Solicitud</th>
               <th>Usuario</th>
               <th>Libros Prestados</th>
               <th>Tipo de Préstamo</th>
@@ -93,7 +92,6 @@ const Vencidos = () => {
           <tbody>
             {filteredPrestamos.map((prestamo, index) => (
               <tr key={index}>
-                <td>{prestamo._id}</td>
                 <td>{prestamo.usuario.nombre}</td>
                 <td>{prestamo.libros.map(libro => libro.titulo).join(', ')}</td>
                 <td>{prestamo.tipo}</td>

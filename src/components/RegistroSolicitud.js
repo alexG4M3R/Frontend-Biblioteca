@@ -9,7 +9,7 @@ const RegistroSolicitud = () => {
   const navigate = useNavigate();
   const { loan } = location.state || {};
   const [rut, setRut] = useState('');
-  const [fingerprint, setFingerprint] = useState(null); // Estado para la foto de la huella digital
+  const [fingerprint, setFingerprint] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {

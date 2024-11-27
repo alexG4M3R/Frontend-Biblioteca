@@ -7,11 +7,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const Resultados = () => {
   const [librosData, setLibrosData] = useState([]);
   const [selectedLibros, setSelectedLibros] = useState([]);
-  const [tipoPrestamo, setTipoPrestamo] = useState('domicilio'); // Estado para el tipo de préstamo
+  const [tipoPrestamo, setTipoPrestamo] = useState('domicilio');
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const usuarioId = localStorage.getItem('usuarioId'); // Obtener el ID del usuario del almacenamiento local
+  const usuarioId = localStorage.getItem('usuarioId');
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -70,7 +70,7 @@ const Resultados = () => {
 
       const data = await response.json();
       alert('Solicitud agregada y libros actualizados');
-      navigate('/catalogo'); // Redirigir a la página de catálogo
+      navigate('/catalogo');
     } catch (error) {
       console.log(selectedLibros, usuarioId, tipoPrestamo);
       console.error('Error:', error);

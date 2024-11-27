@@ -8,7 +8,7 @@ const Solicitudes = () => {
   const [loanData, setLoanData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredLoans, setFilteredLoans] = useState([]);
-  const [filterType, setFilterType] = useState(''); // Estado para el filtro de tipo de préstamo
+  const [filterType, setFilterType] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Solicitudes = () => {
         return response.json();
       })
       .then(data => {
-        console.log(data); // Verificar los datos en la consola del navegador
+        console.log(data);
         setLoanData(data || []);
         setFilteredLoans(data || []);
       })
@@ -32,7 +32,7 @@ const Solicitudes = () => {
       (loan.usuario.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
       loan.libros.some(libro => libro.titulo.toLowerCase().includes(searchTerm.toLowerCase()))) &&
       (filterType === '' || loan.tipo === filterType) &&
-      loan.estado === 'pendiente' // Filtrar por estado pendiente
+      loan.estado === 'pendiente'
     );
     setFilteredLoans(results);
   }, [searchTerm, filterType, loanData]);
@@ -51,7 +51,6 @@ const Solicitudes = () => {
         throw new Error('Error al eliminar el préstamo');
       }
 
-      // Actualizar el estado del préstamo en la interfaz
       setLoanData(prevData => prevData.filter(loan => loan._id !== loanId));
     } catch (error) {
       console.error('Error:', error);

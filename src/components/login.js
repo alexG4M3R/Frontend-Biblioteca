@@ -10,7 +10,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Cerrar sesión al montar el componente
     localStorage.removeItem('token');
     localStorage.removeItem('usuarioId');
     localStorage.removeItem('rol');
@@ -33,7 +32,7 @@ const Login = () => {
       }
 
       localStorage.setItem('token', data.token);
-      localStorage.setItem('usuarioId', data.id); // Guardar el ID del usuario
+      localStorage.setItem('usuarioId', data.id);
       localStorage.setItem('rol', data.rol);
 
       if (data.rol === 'admin') {

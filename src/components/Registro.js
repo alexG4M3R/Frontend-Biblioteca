@@ -10,13 +10,13 @@ const RegistroUsuario = () => {
   const [password, setPassword] = useState('');
   const [direccion, setDireccion] = useState('');
   const [telefono, setTelefono] = useState('');
-  const [rol, setRol] = useState('usuario'); // Estado para el rol del usuario
+  const [rol, setRol] = useState('usuario');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   const handleRutChange = (e) => {
     const value = e.target.value;
-    if (/^\d*$/.test(value)) { // Verificar si el valor contiene solo números
+    if (/^\d*$/.test(value)) {
       setRut(value);
     }
   };
@@ -79,7 +79,7 @@ const RegistroUsuario = () => {
                   name="rut" 
                   value={rut}
                   onChange={handleRutChange}
-                  pattern="\d*" // Permitir solo números
+                  pattern="\d*"
                   required 
                   placeholder='Ej: 123456789'
                 />

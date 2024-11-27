@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Vencidos = () => {
   const [prestamosData, setPrestamosData] = useState([]);
-  const [filterType, setFilterType] = useState('all'); // Estado para el filtro de tipo de préstamo
+  const [filterType, setFilterType] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(null);
   const [message, setMessage] = useState('');
@@ -37,8 +37,6 @@ const Vencidos = () => {
   };
 
   const handleSendReminder = (prestamoId) => {
-    // Aquí puedes agregar la lógica para enviar el recordatorio por correo
-    // Por ahora, solo mostramos un mensaje de confirmación
     setMessage(`Recordatorio enviado al correo para el préstamo con ID: ${prestamoId}`);
   };
 

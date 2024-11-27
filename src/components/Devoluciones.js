@@ -32,7 +32,7 @@ const DevolucionLibro = () => {
       setTimeout(() => {
         setSuccess('');
         navigate('/devoluciones');
-      }, 1000); // Redirigir después de 2 segundos
+      }, 1000);
     } catch (error) {
       setError(error.message);
     }

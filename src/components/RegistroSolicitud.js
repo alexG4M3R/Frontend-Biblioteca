@@ -1,66 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
-import '../styles/RegistroSolicitud.css';
-import Background from './Background';
 import { useLocation, useNavigate } from 'react-router-dom';
+import '../styles/registro.css';
+import Header from './Header';
+import Background from './Background';
 
 const RegistroSolicitud = () => {
-  const [isConfirmed, setIsConfirmed] = useState(false);
-  const [libros, setLibros] = useState('');
-  const [tipoPrestamo, setTipoPrestamo] = useState('');
-  const [fechaDevolucion, setFechaDevolucion] = useState('');
-  const [rut, setRut] = useState('');
-  const [error, setError] = useState('');
-  const [showHuella, setShowHuella] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const params = new URLSearchParams(location.search);
-  const solicitudId = params.get('id'); // Obtener el ID de la solicitud desde los parámetros de la URL
+  const { loan } = location.state || {};
+  const [rut, setRut] = useState('');
+  const [fingerprint, setFingerprint] = useState(null); // Estado para la foto de la huella digital
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (solicitudId) {
-      // Obtener los datos de la solicitud desde el backend
-      fetch(`/api/prestamos/${solicitudId}`)
-        .then(response => response.json())
-        .then(data => {
-          setLibros(data.libros.map(libro => libro.titulo).join(', '));
-          setTipoPrestamo(data.tipo);
-          setFechaDevolucion(new Date(data.fechaDevolucion).toLocaleDateString());
-        })
-        .catch(error => console.error('Error:', error));
-    } else {
-      setError('ID de solicitud no proporcionado');
+    if (!loan) {
+      navigate('/solicitudes');
     }
-  }, [solicitudId]);
+  }, [loan, navigate]);
 
-  const handleConfirm = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!rut) {
+      window.alert('Por favor, ingrese el RUT del usuario');
+      return;
+    }
     try {
-      const response = await fetch(`/api/usuarios/${rut}`);
-      if (!response.ok) {
-        throw new Error('Usuario no encontrado');
-      }
-      const usuario = await response.json();
-      if (usuario.rut !== rut) {
-        throw new Error('RUT no coincide con el usuario');
+      const formData = new FormData();
+      formData.append('estado', 'registrado');
+      formData.append('rut', rut);
+      if (fingerprint) {
+        formData.append('fingerprint', fingerprint);
       }
 
-      // Actualizar el estado del préstamo a "registrado"
-      await fetch(`/api/prestamos/${solicitudId}`, {
+      const response = await fetch(`/api/prestamos/${loan._id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: formData
       });
 
-      setIsConfirmed(true);
-      navigate('/solicitudes'); // Redirigir a la pantalla de solicitudes
+      if (!response.ok) {
+        throw new Error('Error al registrar el préstamo');
+      }
+
+      window.alert('Préstamo registrado correctamente');
+      navigate('/solicitudes');
     } catch (error) {
       setError(error.message);
     }
-  };
-
-  const handleShowHuella = () => {
-    setShowHuella(true);
   };
 
   return (
@@ -72,15 +57,15 @@ const RegistroSolicitud = () => {
         {error && <p className="error">{error}</p>}
         <div className="form-group">
           <label htmlFor="libros">Libros Solicitados:</label>
-          <input type="text" value={libros} readOnly />
+          <input type="text" value={loan ? loan.libros.map(libro => libro.titulo).join(', ') : ''} readOnly />
         </div>
         <div className="form-group">
           <label htmlFor="tipoPrestamo">Tipo de Préstamo:</label>
-          <input type="text" value={tipoPrestamo} readOnly />
+          <input type="text" value={loan ? loan.tipo : ''} readOnly />
         </div>
         <div className="form-group">
           <label htmlFor="fechaDevolucion">Fecha de Devolución:</label>
-          <input type="text" value={fechaDevolucion} readOnly />
+          <input type="text" value={loan ? new Date(loan.fechaDevolucion).toLocaleDateString() : ''} readOnly />
         </div>
         <div className="form-group">
           <label htmlFor="rut">RUT del Usuario:</label>
@@ -91,19 +76,17 @@ const RegistroSolicitud = () => {
             onChange={(e) => setRut(e.target.value)}
           />
         </div>
-        <button onClick={handleConfirm}>Confirmar</button>
-        {isConfirmed && (
-          <div>
-            <p>Huella digital registrada</p>
-            {/* Aquí puedes agregar la lógica para mostrar la huella digital */}
-          </div>
-        )}
-        <button onClick={handleShowHuella}>Mostrar Huella</button>
-        {showHuella && (
-          <div>
-            <img src="/imagenes/huella.png" alt="Huella Digital" />
-          </div>
-        )}
+        <div className="form-group">
+          <label htmlFor="fingerprint">Foto de la Huella Digital (opcional):</label>
+          <input 
+            type="file" 
+            id="fingerprint" 
+            name="fingerprint" 
+            accept=".png, .jpg, .jpeg" 
+            onChange={(e) => setFingerprint(e.target.files[0])}
+          />
+        </div>
+        <button onClick={handleSubmit}>Registrar</button>
       </div>
     </div>
   );

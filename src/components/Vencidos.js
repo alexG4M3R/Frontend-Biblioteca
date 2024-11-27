@@ -1,35 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Solicitudes.css';
 import Header from './Header';
 import Background from './Background';
+import { useNavigate } from 'react-router-dom';
 
 const Vencidos = () => {
-  const vencidosData = [
-    { id: '001', usuario: 'Juan Pérez', libros: 'Blancanieves, La caperucita roja', tipoPrestamo: 'Domicilio', fechaVencimiento: '2024-08-30' },
-    { id: '002', usuario: 'Jorge Palma', libros: 'Programacion web y desarrollo movil', tipoPrestamo: 'Domicilio', fechaVencimiento: '2024-08-30' },
-    { id: '003', usuario: 'Nelson Erices', libros: 'Biografia del Ale', tipoPrestamo: 'Sala', fechaVencimiento: '2024-08-30' },
-    { id: '004', usuario: 'Walter White', libros: 'Quimica Avanzada, Negocios del bajo mundo, Narcos', tipoPrestamo: 'Domicilio', fechaVencimiento: '2024-08-30' },
-    { id: '005', usuario: 'Tony Stark', libros: 'Fisica Termonuclear II, Revista Times', tipoPrestamo: 'Domicilio', fechaVencimiento: '2024-08-30' },
-    { id: '006', usuario: 'Light Yagami', libros: 'Biografia de L, Consejos de un mentiroso', tipoPrestamo: 'Sala', fechaVencimiento: '2024-08-30' },
-    { id: '007', usuario: 'Mike Ross', libros: 'Revisa legal 2016, Todo sobre Harvard, Nuevas leyes', tipoPrestamo: 'Sala', fechaVencimiento: '2024-08-30' },
-    { id: '008', usuario: 'Pablo Riquelme', libros: 'Como subir el promedio, Programacion avanzada', tipoPrestamo: 'Domicilio', fechaVencimiento: '2024-08-30' },
-  ];
+  const [prestamosData, setPrestamosData] = useState([]);
+  const [filterType, setFilterType] = useState('all'); // Estado para el filtro de tipo de préstamo
+  const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState(null);
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch('/api/prestamos')
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setPrestamosData(data);
+        } else {
+          setError('Error al obtener los datos');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setError(error.message);
+      });
+  }, []);
+
+  const handleFilterChange = (e) => {
+    setFilterType(e.target.value);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSendReminder = (prestamoId) => {
+    // Aquí puedes agregar la lógica para enviar el recordatorio por correo
+    // Por ahora, solo mostramos un mensaje de confirmación
+    setMessage(`Recordatorio enviado al correo para el préstamo con ID: ${prestamoId}`);
+  };
+
+  const handleDevolucion = (prestamoId) => {
+    navigate(`/devoluciones/`);
+  };
+
+  const filteredPrestamos = prestamosData.filter(prestamo => {
+    const matchesFilter = filterType === 'all' || prestamo.estado === filterType;
+    const matchesSearch = prestamo.usuario.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          prestamo.libros.some(libro => libro.titulo.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                          prestamo._id.includes(searchTerm);
+    const isRegisteredOrVencido = prestamo.estado === 'registrado' || prestamo.estado === 'vencido';
+    return matchesFilter && matchesSearch && isRegisteredOrVencido;
+  });
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
       <Header />
       <div><Background imageUrl={`${process.env.PUBLIC_URL}/imagenes/fondo.jpeg`} /></div>
       <div className="container">
-        <h1>Consulta de Prestamos Vencidos</h1>
+        <h1>Consulta de Préstamos</h1>
+        {message && <p className="message">{message}</p>}
         <form>
           <div className="filters">
-            <input type="text" placeholder="Buscar por usuario, ID o libro..." />
-            <select className="filter-select">
+            <input 
+              type="text" 
+              placeholder="Buscar por usuario, ID o libro..." 
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            <select className="filter-select" value={filterType} onChange={handleFilterChange}>
               <option value="all">Todos</option>
-              <option value="domicilio">Domicilio</option>
-              <option value="sala">Sala</option>
+              <option value="registrado">En Préstamo</option>
+              <option value="vencido">Vencidos</option>
             </select>
-            <button type="submit">Buscar</button>
           </div>
         </form>
         <table>
@@ -44,17 +93,31 @@ const Vencidos = () => {
             </tr>
           </thead>
           <tbody>
-            {vencidosData.map((prestamo, index) => (
+            {filteredPrestamos.map((prestamo, index) => (
               <tr key={index}>
-                <td>{prestamo.id}</td>
-                <td>{prestamo.usuario}</td>
-                <td>{prestamo.libros}</td>
-                <td>{prestamo.tipoPrestamo}</td>
-                <td>{prestamo.fechaVencimiento}</td>
+                <td>{prestamo._id}</td>
+                <td>{prestamo.usuario.nombre}</td>
+                <td>{prestamo.libros.map(libro => libro.titulo).join(', ')}</td>
+                <td>{prestamo.tipo}</td>
+                <td>{new Date(prestamo.fechaDevolucion).toLocaleDateString()}</td>
                 <td>
-                  <form>
-                    <button className='botonsoli' type="submit">Enviar Recordatorio</button>
-                  </form>
+                  {prestamo.estado === 'vencido' ? (
+                    <button 
+                      className='botonsoli' 
+                      type="button" 
+                      onClick={() => handleSendReminder(prestamo._id)}
+                    >
+                      Enviar Recordatorio
+                    </button>
+                  ) : (
+                    <button 
+                      className='botonsoli' 
+                      type="button" 
+                      onClick={() => handleDevolucion(prestamo._id)}
+                    >
+                      Devolver Libro
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

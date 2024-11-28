@@ -15,10 +15,12 @@ const Resultados = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const titulo = params.get('titulo');
-    const autor = params.get('autor');
+    const titulo = params.get('titulo') || '';
+    const autor = params.get('autor') || '';
+    const categoria = params.get('categoria') || '';
+    console.log(titulo, autor, categoria);
 
-    fetch(`/api/libros?titulo=${titulo}&autor=${autor}`)
+    fetch(`/api/libros?titulo=${titulo}&autor=${autor}&categoria=${categoria}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -47,6 +49,11 @@ const Resultados = () => {
   const handleAgregarSolicitud = async (e) => {
     e.preventDefault();
     try {
+      if (selectedLibros.length === 0) {
+        alert('Debe seleccionar al menos un libro.');
+        return;
+      }
+
       if (!usuarioId) {
         throw new Error('Usuario no autenticado');
       }
